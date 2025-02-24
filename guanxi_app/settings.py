@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'guanxi_app.financial',
     'guanxi_app.staff',
     'guanxi_app.core',
+    'guanxi_app.product',
     # 'django_browser_reload'
 ]
 
