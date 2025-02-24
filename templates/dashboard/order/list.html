@@ -7,7 +7,7 @@
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-bold mb-6">Pedidos</h1>
 
-        <a href="{% url 'order_create' %}"
+        <a href="#"
            class="px-4 py-2 bg-cf-primary hover:bg-cf-hover text-white rounded transition">
             Adicionar Novo Pedido
         </a>
@@ -42,7 +42,7 @@
                         <td class="py-4 font-bold">{{ order.created_at.date }}</td>
                         <td class="py-4 font-medium space-x-4">
                             {% if order.status == "PENDING" %}
-                                <a href="{% url 'order_delete' order.pk %}"
+                                <a href="#"
                                    class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded transition">
                                     Excluir
                                 </a>

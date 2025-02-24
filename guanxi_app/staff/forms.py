@@ -1,6 +1,6 @@
 from django import forms
 
-from user.models import Account
+from guanxi_app.user.models import Account
 
 
 class AccountAdminForm(forms.ModelForm):

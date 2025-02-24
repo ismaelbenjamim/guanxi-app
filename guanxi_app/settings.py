@@ -56,9 +56,11 @@ INSTALLED_APPS = [
     'django_celery_beat',
 
     # Own apps
-    'user',
-    'staff',
-    'core',
+    'guanxi_app.user',
+    'guanxi_app.assistant',
+    'guanxi_app.financial',
+    'guanxi_app.staff',
+    'guanxi_app.core',
     # 'django_browser_reload'
 ]
 

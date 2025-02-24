@@ -1,11 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
-from django.db.models.functions import TruncMonth
 from django.shortcuts import render
-
-from user.models import Account
 
 
 def landing_view(request):
@@ -18,8 +14,7 @@ def dashboard_view(request):
 
     context = {
         "followers_added": "602",
-        "total_accounts": len(
-            Account.objects.filter(user=user, session_user_id__isnull=False, session_id__isnull=False)),
+        "total_accounts": 20,
         "total_orders": "500",
         "lastest_orders": "20",
         "followers_labels": json.dumps([

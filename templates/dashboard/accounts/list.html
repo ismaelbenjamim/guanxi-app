@@ -7,7 +7,7 @@
 <div class="container mx-auto p-6">
     <h1 class="text-3xl font-bold mb-6">Minhas Contas</h1>
 
-    <a href="{% url 'account_create' %}" class="px-4 py-2 bg-cf-primary hover:bg-cf-hover text-white rounded transition">
+    <a href="#" class="px-4 py-2 bg-cf-primary hover:bg-cf-hover text-white rounded transition">
         Adicionar Nova Conta
     </a>
 
@@ -30,19 +30,19 @@
                     </td>
                     <td class="py-4 font-medium space-x-4">
                         {% if account.status == "PENDING" %}
-                            <a href="{% url 'account_confirm' account.pk %}" class="px-4 py-2  border border-green-400 text-green-400 hover:text-green-300 hover:border-green-300 font-bold rounded transition">
+                            <a href="#" class="px-4 py-2  border border-green-400 text-green-400 hover:text-green-300 hover:border-green-300 font-bold rounded transition">
                                 Confirmar conta
                             </a>
                         {% elif account.status == "WAITING_CODE" %}
-                            <a href="{% url 'account_confirm' account.pk %}" class="px-4 py-2 border border-yellow-400 text-yellow-400 hover:text-yellow-300 hover:border-yellow-300 font-bold rounded transition">
+                            <a href="#" class="px-4 py-2 border border-yellow-400 text-yellow-400 hover:text-yellow-300 hover:border-yellow-300 font-bold rounded transition">
                                 Validar código
                             </a>
                         {% else %}
-                            <a href="{% url 'account_confirm' account.pk %}" class="px-4 py-2 border border-white text-white hover:text-gray-200 hover:border-gray-200 font-bold rounded transition">
+                            <a href="#" class="px-4 py-2 border border-white text-white hover:text-gray-200 hover:border-gray-200 font-bold rounded transition">
                                 Refazer confirmação
                             </a>
                         {% endif %}
-                        <a href="{% url 'account_delete' account.pk %}" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded transition">
+                        <a href="#" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded transition">
                             Excluir
                         </a>
                     </td>

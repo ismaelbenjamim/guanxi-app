@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
-from user.models import User, Account
+from guanxi_app.user.models import User
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -87,56 +87,3 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-
-class AccountForm(forms.ModelForm):
-    class Meta:
-        model = Account
-        fields = ['username']
-        widgets = {
-            'username': forms.TextInput(
-                attrs={'class': 'input input-bordered w-full mb-4 rounded', 'style': 'color: #000;'}),
-            # 'session_user_id': forms.TextInput(attrs={'class': 'input input-bordered w-full mb-4 rounded', 'style': 'color: #000;'}),
-            # 'session_id': forms.TextInput(attrs={'class': 'input input-bordered w-full mb-4 rounded', 'style': 'color: #000;'}),
-        }
-
-
-class AccountConfirmForm(forms.Form):
-
-    username = forms.CharField(
-        label="Usuário do Instagram",
-        disabled=True,
-        widget=forms.TextInput(attrs={'class': 'input bg-cf-dark border-cf-muted/50 font-bold w-full mb-4 rounded',
-                                      'style': 'color: grey;'}))
-
-    password = forms.CharField(
-        label="Senha do Instagram",
-        widget=forms.PasswordInput(
-            attrs={'class': 'input input-bordered w-full mb-4 rounded', 'style': 'color: #000;'}))
-
-    def save(self, account):
-        account.temp_code = None
-        account.status = Account.AccountStatus.PROCESSING
-        account.save()
-
-
-class AccountConfirmCodeForm(forms.Form):
-    username = forms.CharField(
-        label="Usuário do Instagram",
-        disabled=True,
-        widget=forms.TextInput(attrs={'class': 'input bg-cf-dark border-cf-muted/50 font-bold w-full mb-4 rounded',
-                                      'style': 'color: grey;'}))
-    code = forms.CharField(
-        label="Código do instagram",
-        help_text="Código de autenticação de 6 dígitos",
-        widget=forms.TextInput(attrs={'class': 'input input-bordered w-full mb-4 rounded', 'style': 'color: #000;'}))
-
-    def __init__(self, *args, account=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.account = account
-        if account:
-            self.fields["username"].initial = account.username
-
-    def save(self):
-        self.account.temp_code = self.cleaned_data['code']
-        self.account.save()

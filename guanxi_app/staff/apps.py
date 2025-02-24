@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class UserConfig(AppConfig):
+class StaffConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'user'
+    name = 'guanxi_app.staff'
