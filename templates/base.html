@@ -1,0 +1,215 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}guanxi{% endblock %}</title>
+    {% tailwind_css %}
+</head>
+<body class="flex flex-col w-full min-h-screen bg-cf-dark-light text-cf-dark-light">
+
+<header class="p-4 bg-cf-dark-light border-b border-b-cf-accent/20 shadow flex w-full justify-between items-center">
+    <div class="flex items-center">
+        <!-- Botão de menu mobile -->
+        <button id="menu-toggle" class="md:hidden text-white p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+        </button>
+        <a class="ms-2 text-2xl font-bold flex items-center text-white" href="{% url 'dashboard' %}">
+            <img src="{% static 'images/logo/logo.svg' %}" alt="guanxi Logo" class="w-10 h-10 mr-3">
+            guanxi
+        </a>
+    </div>
+    <div class="space-x-4">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded transition">
+                Sair
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="px-4 py-2 bg-cf-primary hover:bg-cf-hover text-white rounded transition">
+                Login
+            </a>
+        {% endif %}
+    </div>
+</header>
+
+<main class="flex flex-1 w-full min-w-0">
+    <div class="flex w-full h-full min-h-screen">
+        {% if user.is_authenticated %}
+            <!-- Sidebar Mobile e Desktop -->
+            <aside id="sidebar"
+                   class="fixed z-50 md:relative left-0 top-0 h-full w-64 bg-cf-dark-light border-e border-e-cf-accent/20 text-white p-4
+                transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+                <nav>
+                    <a class="bg-cf-dark p-4 rounded-lg md:hidden mb-8 mt-4 text-2xl font-bold flex justify-center items-center text-white" href="{% url 'dashboard' %}">
+                        <img src="{% static 'images/logo/logo.svg' %}" alt="guanxi Logo" class="w-10 h-10 mr-3">
+                        guanxi
+                    </a>
+                    <ul>
+                        <li class="mb-4">
+                            <a href="{% url 'dashboard' %}"
+                               class="flex items-center gap-3 py-2 px-4 hover:bg-cf-hover rounded transition {% if request.path == '/dashboard/' %}bg-cf-hover{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                     fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="lucide lucide-layout-grid">
+                                    <rect width="7" height="7" x="3" y="3" rx="1"/>
+                                    <rect width="7" height="7" x="14" y="3" rx="1"/>
+                                    <rect width="7" height="7" x="14" y="14" rx="1"/>
+                                    <rect width="7" height="7" x="3" y="14" rx="1"/>
+                                </svg>
+                                Dashboard
+                            </a>
+                        </li>
+
+                        {% if user.is_superuser %}
+                            <div class="bg-cf-dark rounded-md px-2 pb-2 space-y-4 gap-4 mb-4">
+                                <li class="mt-6 border-b border-b-gray-500/50 py-4 mb-4 text-center text-gray-300 uppercase text-sm font-light">
+                                    ADMIN
+                                </li>
+                                <li>
+                                    <a href="{% url 'account_list_admin' %}"
+                                       class="flex items-center gap-3 py-2 px-4 hover:bg-cf-hover rounded transition {% if request.path == '/dashboard/admin/users/' %}bg-cf-hover{% endif %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        </svg>
+                                        Usuários
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'account_list_admin' %}"
+                                       class="flex items-center gap-3 py-2 px-4 hover:bg-cf-hover rounded transition {% if request.path == '/dashboard/admin/accounts/' %}bg-cf-hover{% endif %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        </svg>
+                                        Contas de Usuários
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                       class="flex items-center gap-3 py-2 px-4 hover:bg-cf-hover rounded transition {% if request.path == '/dashboard/admin/orders/' %}bg-cf-hover{% endif %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             class="lucide lucide-clipboard-list">
+                                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                            <path d="M12 11h4"/>
+                                            <path d="M12 16h4"/>
+                                            <path d="M8 11h.01"/>
+                                            <path d="M8 16h.01"/>
+                                        </svg>
+                                        Pedidos de Usuários
+                                    </a>
+                                </li>
+                            </div>
+                        {% endif %}
+
+                        <li class="mb-4">
+                            <a href="{% url 'account_list' %}"
+                               class="flex items-center gap-3 py-2 px-4 hover:bg-cf-hover rounded transition {% if request.path == '/dashboard/users/accounts/' %}bg-cf-hover{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                     fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="lucide lucide-users">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                </svg>
+                                Contas
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#"
+                               class="flex items-center gap-3 py-2 px-4 hover:bg-cf-hover rounded transition {% if request.path == '/dashboard/financial/orders/' %}bg-cf-hover{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="lucide lucide-list">
+                                    <path d="M3 12h.01"/>
+                                    <path d="M3 18h.01"/>
+                                    <path d="M3 6h.01"/>
+                                    <path d="M8 12h13"/>
+                                    <path d="M8 18h13"/>
+                                    <path d="M8 6h13"/>
+                                </svg>
+                                Pedidos
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <div id="overlay" class="fixed z-40 inset-0 bg-black bg-opacity-50 hidden md:hidden"></div>
+        {% endif %}
+
+
+        <!-- Conteúdo principal -->
+        <div class="flex-1 p-6 md:p-8 bg-cf-dark text-white min-w-0">
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</main>
+
+<footer class="p-4 bg-cf-dark-light text-center border-t border-t-cf-accent/20">
+    <small class="text-cf-muted">© 2025 guanxi. Todos os direitos reservados.</small>
+</footer>
+
+<!-- Script para alternar entre dark e light mode -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlEl.classList.add('dark');
+        } else {
+            htmlEl.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+            localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menu-toggle");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        menuToggle.addEventListener("click", function () {
+            sidebar.classList.toggle("-translate-x-full");
+            overlay.classList.toggle("hidden");
+        });
+
+        overlay.addEventListener("click", function () {
+            sidebar.classList.add("-translate-x-full");
+            overlay.classList.add("hidden");
+        });
+    });
+</script>
+
+</body>
+</html>

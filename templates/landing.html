@@ -1,0 +1,261 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>guanxi | Micro-SaaS para Close Friends no Instagram</title>
+    {% tailwind_css %}
+    <!-- Caso queira animações extras (ex. Animate.css), import e uso:
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    -->
+    <style>
+        /* Exemplo: animação fade-in simples c/ Tailwind, se quiser custom: */
+        .fade-in {
+            @apply opacity-0 transition-opacity duration-700 ease-out;
+        }
+
+        .fade-in.appear {
+            @apply opacity-100;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-white text-cf-dark-light font-sans overflow-x-hidden">
+
+<!-- Header -->
+<header class="border-b border-gray-200">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="{% url 'dashboard' %}" class="flex items-center gap-3 group">
+            <!-- Ao focar/hover, levemente gira e aumenta -->
+            <img
+                    src="{% static 'images/logo/logo.svg' %}"
+                    alt="guanxi Logo"
+                    class="h-8 w-8 transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+            />
+            <!-- Exemplo: texto com gradiente e background-clip -->
+            <span
+                    class="font-extrabold text-xl text-cf-primary"
+            >
+            guanxi
+          </span>
+        </a>
+
+        <nav>
+            <ul class="flex items-center gap-6">
+                <!-- Menu “flutuante” no hover -->
+                <li>
+                    <a href="{% url 'login' %}"
+                       class="bg-cf-primary px-4 py-2 rounded text-white hover:bg-cf-hover transition-colors hover:shadow-md"
+                    >
+                        Login
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero / Destaque c/ overlay e animações de fade-in -->
+<section
+    class="relative py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+    style="background-image: url('{% static 'images/wallpaper.png' %}');"
+    id="hero-section"
+>
+    <div class="container mx-auto px-4 flex items-center justify-center text-start relative">
+        <!-- Texto e Imagem Centralizados -->
+        <div class="max-w-6xl flex flex-col md:flex-row justify-center items-center gap-12 fade-in" id="hero-content">
+            <div class="text-center md:text-left max-w-lg">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100"
+                    height="100"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mb-4 lucide lucide-rocket transform transition-transform duration-500 hover:rotate-6 hover:scale-105 hidden md:block"
+                >
+                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                </svg>
+                <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight text-white">
+                    Aumente seu alcance automatizando seu close friends
+                </h1>
+                <p class="text-lg text-gray-200">
+                    O <strong>guanxi</strong> é uma ferramenta que possibilita
+                    <strong>adicionar todos os seus seguidores ao Close Friends no Instagram</strong>
+                    de forma automática, rápida e eficiente, melhorando o seu alcance em <strong>100%</strong>.
+                </p>
+                <div class="mt-6">
+                    <a
+                        href="#"
+                        class="inline-block border border-white text-white px-6 py-3 rounded font-medium hover:bg-white hover:text-cf-primary transition-colors"
+                    >
+                        <strong>Experimente agora</strong>
+                    </a>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <img src="{% static 'images/wallpaper2.png' %}" alt="guanxi wallpaper" class="rounded-lg max-w-sm md:max-w-md lg:max-w-xl"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Seção de Recursos / Features -->
+<section class="py-16" id="features-section">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold mb-4">Por que usar o guanxi?</h2>
+            <p class="text-gray-600">
+                Automatize a adição de seguidores ao seu Close Friends, economizando tempo
+                e criando oportunidades de monetização e engajamento no Instagram.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in" id="features-grid">
+            <!-- Card 1 -->
+            <div class="bg-gray-50 p-6 rounded border border-gray-200 hover:shadow-lg transform transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center mb-4 text-cf-primary">
+                    <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <h3 class="font-semibold text-lg">Simplicidade</h3>
+                </div>
+                <p class="text-gray-600">
+                    Uma interface intuitiva para gerenciar e adicionar seguidores ao Close Friends
+                    sem complicações técnicas.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-gray-50 p-6 rounded border border-gray-200 hover:shadow-lg transform transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center mb-4 text-cf-primary">
+                    <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M3 13.5a4.5 4.5 0 019 0V16m0 0H8a4 4 0 108 0h-4v-2.5a4.5 4.5 0 019 0"/>
+                    </svg>
+                    <h3 class="font-semibold text-lg">Rapidez</h3>
+                </div>
+                <p class="text-gray-600">
+                    Adicione múltiplos seguidores em segundos, garantindo
+                    que seu Close Friends cresça de forma ágil e automatizada.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-gray-50 p-6 rounded border border-gray-200 hover:shadow-lg transform transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center mb-4 text-cf-primary">
+                    <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M3 13.5a4.5 4.5 0 019 0V16m0 0H8a4 4 0 108 0h-4v-2.5a4.5 4.5 0 019 0"/>
+                    </svg>
+                    <h3 class="font-semibold text-lg">Eficiência</h3>
+                </div>
+                <p class="text-gray-600">
+                    Funções avançadas de automação para que você
+                    foque no conteúdo, sem se preocupar com tarefas repetitivas.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Perguntas Frequentes</h2>
+            <p class="text-gray-600">
+                Esclareça as principais dúvidas sobre como funciona o nosso Micro-SaaS para Close Friends.
+            </p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-8">
+            <div class="fade-in">
+                <h3 class="font-semibold text-lg mb-2">1. O que faz exatamente o guanxi?</h3>
+                <p class="text-gray-600">
+                    O guanxi é um micro-SaaS que automatiza a adição de seguidores ao seu Close Friends no Instagram,
+                    permitindo uma expansão rápida e eficiente, tal como grandes artistas fizeram.
+                </p>
+            </div>
+            <div class="fade-in">
+                <h3 class="font-semibold text-lg mb-2">2. Como posso começar a utilizar?</h3>
+                <p class="text-gray-600">
+                    Basta criar uma conta e escolher quantos seguidores deseja adicionar. O sistema fará o restante,
+                    incluindo notificações e confirmação de entrada no seu Close Friends.
+                </p>
+            </div>
+            <div class="fade-in">
+                <h3 class="font-semibold text-lg mb-2">3. Preciso de planos de assinatura?</h3>
+                <p class="text-gray-600">
+                    Não há planos mensais. Você só paga de acordo com a quantidade de seguidores que deseja incluir
+                    no seu Close Friends — simples e direto.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final -->
+<section class="py-16 border-t border-gray-200">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Pronto para lotar seu Close Friends?</h2>
+        <p class="text-gray-600 mb-8">
+            Experimente o guanxi hoje mesmo e conquiste resultados impressionantes no Instagram.
+        </p>
+        <a href="/login"
+           class="inline-block bg-cf-primary text-white px-6 py-3 rounded hover:bg-cf-secondary transition-colors hover:shadow-lg"
+        >
+            Começar agora
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white py-8 border-t border-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between">
+            <div class="flex items-center gap-3 mb-4 sm:mb-0">
+                <img src="{% static 'images/logo/logo.svg' %}" alt="guanxi Logo" class="h-6 w-6"/>
+                <span class="font-bold text-lg">guanxi</span>
+            </div>
+            <p class="text-sm text-gray-500">
+                © 2025 guanxi. Todos os direitos reservados.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- JS -> para animar fade-in via Intersection Observer ou script simples -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Exemplo simples: IntersectionObserver para animar fade-in
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+            }
+        );
+
+        // Seções / elementos com a classe .fade-in
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach((el) => observer.observe(el));
+    });
+</script>
+</body>
+</html>

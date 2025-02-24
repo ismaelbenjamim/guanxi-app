@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">{{ title }}</h1>
+        <form method="post" class="bg-cf-dark-light p-6 rounded-lg shadow-lg">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                    {% for error in form.non_field_errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded transition mt-4">
+                Enviar
+            </button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let form = document.querySelector("form");
+            let codeWrapper = document.getElementById("code_wrapper");
+            let codeField = document.getElementById("code_input");
+
+            form.addEventListener("submit", function (event) {
+                let errorMessage = document.querySelector(".error-message");
+
+                // Verifica se a resposta do servidor indicou que o código é necessário
+                if (errorMessage && errorMessage.textContent.includes("O código de autenticação é necessário")) {
+                    codeWrapper.style.display = "block";  // Exibe o label e help_text
+                    codeField.required = true;  // Torna obrigatório
+                    event.preventDefault();  // Impede o envio do formulário para que o usuário possa preencher o código
+                }
+            });
+        });
+    </script>
+{% endblock %}

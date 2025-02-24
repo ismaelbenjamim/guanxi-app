@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Minhas Contas{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">Pedidos</h1>
+
+        <a href="{% url 'order_create' %}"
+           class="px-4 py-2 bg-cf-primary hover:bg-cf-hover text-white rounded transition">
+            Adicionar Novo Pedido
+        </a>
+
+        <!-- Contêiner responsivo da tabela -->
+        <div class="mt-6 bg-cf-dark-light border border-cf-muted/50 p-6 rounded-lg shadow-lg overflow-x-auto">
+            <table class="min-w-full text-left border-collapse">
+                <thead>
+                <tr class="bg-cf-hover rounded">
+                    <th class="p-4">Conta do Instagram</th>
+                    <th class="p-4">Pedido</th>
+                    <th class="p-4">Status</th>
+                    <th class="p-4">Data de solicitação</th>
+                    <th class="p-4">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr class="border-b border-cf-muted text-cf-muted">
+                        <td class="py-4 font-bold">{{ order.account }}</td>
+                        <td class="py-4 font-bold">
+                            <div class="mb-2">
+                                <span
+                                    class="bg-cf-primary text-sm text-white px-2 py-1 rounded-2xl">{{ order.order_plan.name }}</span>
+                            </div>
+                            <div class="mb-2">
+                                <span
+                                    class="bg-green-700 text-sm text-white px-2 py-1 rounded-2xl">{{ order.order_plan.quantity_users }} seguidores</span>
+                            </div>
+                        </td>
+                        <td class="py-4 font-bold">{{ order.get_status_display }}</td>
+                        <td class="py-4 font-bold">{{ order.created_at.date }}</td>
+                        <td class="py-4 font-medium space-x-4">
+                            {% if order.status == "PENDING" %}
+                                <a href="{% url 'order_delete' order.pk %}"
+                                   class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded transition">
+                                    Excluir
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-gray-500 p-4">
+                            Nenhuma conta cadastrada
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

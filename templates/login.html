@@ -1,0 +1,86 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | guanxi</title>
+    {% tailwind_css %}
+    <style>
+        /* Exemplo de animação fade-in simples (opcional) */
+        .fade-in {
+            @apply opacity-0 transition-opacity duration-700 ease-out;
+        }
+
+        .fade-in.appear {
+            @apply opacity-100;
+        }
+    </style>
+</head>
+<!-- Fundo gradiente do roxo para o azul-claro -->
+<body class="min-h-screen bg-gradient-to-br from-cf-primary to-cf-accent text-gray-900 flex items-center justify-center">
+
+<main class="fade-in" id="login-card">
+    <div class="w-full max-w-2xl bg-white p-8 rounded shadow-lg">
+        <!-- Logo / Título -->
+        <div class="mb-6 flex justify-center">
+            <a href="{% url 'dashboard' %}" class="inline-flex items-center gap-3 group">
+                <img
+                        src="{% static 'images/logo/logo.svg' %}"
+                        alt="guanxi Logo"
+                        class="h-10 w-10 transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+                />
+                <span class="font-extrabold text-2xl text-cf-primary">guanxi</span>
+            </a>
+        </div>
+
+
+        <p class="font-poppins text-2xl font-bold mb-4 text-center">Faça seu login</p>
+
+        <!-- Formulário -->
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <!-- Campo Usuário -->
+            <div class="mb-4">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <!-- Campo Senha -->
+            <div class="mb-6">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <button
+                    type="submit"
+                    class="w-full bg-cf-primary hover:bg-cf-secondary text-white py-2 rounded font-medium transition-colors"
+            >
+                Entrar
+            </button>
+        </form>
+
+        <!-- Link de registro -->
+        <p class="mt-4 text-center text-sm">
+            Não possui conta?
+            <a href="{% url 'register' %}" class="text-cf-secondary hover:underline transition-colors">
+                Registrar
+            </a>
+        </p>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fade-in simples via Intersection Observer ou diretamente
+        const card = document.getElementById('login-card');
+        card.classList.add('appear');
+    });
+</script>
+</body>
+</html>

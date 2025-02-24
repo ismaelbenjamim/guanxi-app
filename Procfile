@@ -1,0 +1,1 @@
+web: gunicorn 'guanxi_app.wsgi:application'
